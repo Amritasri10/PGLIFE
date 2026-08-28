@@ -1,81 +1,176 @@
-# PG Life Web Application
+# PG Life
 
-PG Life is a **Full-Stack Web Application** developed during my **Internshala Web Development Internship Training**.  
-Guided by my mentors, I created this app with my own understanding and customized it for better user experience and functionalities.
+PG Life is a full-stack PG (Paying Guest) discovery and booking web app built with **PHP**, **MySQL**, **Bootstrap**, and **JavaScript**. Users can search PGs by city, mark interest, request bookings, and pay online after admin confirmation. Admins manage cities, properties, testimonials, users, bookings, and payments from a dedicated panel.
 
 ---
 
 ## Features
 
-### 1. Home Page
-- Search bar to enter any city name (case insensitive) and view PGs listed in that city (if available).
-- Displays popular cities as clickable circular sections to quickly view PG listings.
+### User website
+- Search PGs by city (case-insensitive) and browse major cities
+- Property list with rent / rating filters and interested-user counts
+- Property detail page with carousel, amenities, ratings, and dynamic testimonials
+- Signup / Login (AJAX + JSON APIs) with SweetAlert notifications
+- Mark / unmark interested PGs (login required)
+- Book Now → booking request (`pending`)
+- Dashboard: profile, bookings, cancel unpaid bookings, interested list
+- Pay Now (Razorpay) after admin confirms a booking
 
-### 2. PG List Page
-- Shows PGs in the selected city as cards highlighting key features.
-- Filter bar to sort PGs by rent and rating (ascending/descending).
-- Displays the number of users interested in each PG.
-- Logged-in users can mark/unmark PGs as interested by toggling a heart icon that updates dynamically.
-
-### 3. PG Details Page
-- Detailed information about the selected PG, accessible by clicking "View" on any PG card.
-- Image carousel showcasing PG photos.
-- Lists amenities, testimonials, and address neatly.
-- Shows the popularity of the PG by interested user count.
-- Logged-in users can toggle interest status via the heart icon dynamically.
-
-### 4. User Dashboard
-- Accessible only to logged-in users.
-- Displays logged-in user’s account details.
-- Lists PGs marked interested by the user across all cities.
-- Users can remove PGs from their interested list dynamically.
-
-### 5. Navbar
-- Brand name displayed prominently.
-- Shows **Signup** and **Login** options when not logged in.
-- Shows **Dashboard**, **Logout**, and user’s first name when logged in.
-- Fully responsive with a collapsible toggler.
-
-### 6. Breadcrumb Navigation
-- Displays the user's current location within the app.
-- Contains clickable links for easy navigation.
-
-### 7. Footer
-- Lists popular city PG links.
-- Shows copyright information.
+### Admin panel (`/PGLIFE/admin/`)
+- Dashboard stats (properties, cities, users, bookings, payments, testimonials)
+- Manage **Properties** (CRUD, amenities, cover image)
+- Manage **Cities**
+- Manage **Testimonials** (tabular list + add/edit form; shown on PG detail)
+- Manage **Users** and roles (`user` / `admin`)
+- Manage **Bookings** (pending → confirmed / cancelled / completed)
+- View **Payments** (Razorpay order ID, payment ID, method, amount)
 
 ---
 
-## Additional Details
+## Roles
 
-- The web app is **fully responsive** and works smoothly on all device sizes.
-- Users can browse without logging in, but features like dashboard and marking interest require login.
-- All exceptions and errors are handled gracefully with custom UI messages to ensure clarity.
+| Role | Access |
+|------|--------|
+| **user** | Website browse, interest, book, pay, dashboard |
+| **admin** | Admin panel + website view; cannot create user bookings |
+
+Default admin (auto-created on first DB connect):
+
+- **Email:** `admin@pglife.com`
+- **Password:** `Admin@123`
+
+After login, admins are redirected to `/PGLIFE/admin/index.php`.
 
 ---
 
-## Technology Stack
+## Technology stack
 
-- **Frontend:** HTML, CSS, Bootstrap 5, JavaScript, AJAX,React
-- **Backend:** PHP  
-- **Database:** MySQL
+| Layer | Tech |
+|-------|------|
+| Frontend | HTML, CSS, Bootstrap 4, JavaScript, AJAX / Fetch, SweetAlert2, Razorpay Checkout |
+| Backend | PHP 8.x |
+| Database | MySQL / MariaDB |
+| Server | Apache (XAMPP / WAMP) |
 
 ---
 
-## How to Run
+## Project structure
 
-1. Clone the repository:  
-   ``` git clone https://github.com/Amritasri10/PGLIFE.git ```
-2. Import the database from ```pg_life_database/pg_life.sql``` into your        MySQL server.
-3. Set up your PHP server (e.g., XAMPP, WAMP).
-4. Open the project folder in your server's root directory.
-5. Access the application via your browser at         
-    ```http://localhost/PGLIFE/index.php```.
+```text
+PGLIFE/
+├── admin/                 # Admin UI pages
+├── api/                   # JSON APIs (auth, booking, payment, admin CRUD)
+├── css/                   # Styles (responsive)
+├── includes/              # Header, footer, DB, schema, Razorpay config
+├── img/                   # Images & amenities icons
+├── js/                    # Frontend scripts
+├── pg_life_database/      # SQL dump
+├── index.php
+├── property_list.php
+├── property_detail.php
+├── dashboard.php
+└── README.md
+```
+
+---
+
+## Setup
+
+### 1. Place the project
+Copy or clone the project into your web root, e.g. `C:\xampp\htdocs\PGLIFE`.
+
+### 2. Start Apache + MySQL
+Start services from the XAMPP Control Panel.
+
+> This project is configured for MySQL on **port `3307`** (see `includes/database_connect.php`).  
+> If your MySQL uses `3306`, change `$db_port` in:
+> - `includes/database_connect.php`
+> - `includes/database_connect_hide_error.php`
+
+### 3. Import database
+1. Open phpMyAdmin
+2. Import `pg_life_database/pg_life.sql` (creates database `pg_life`)
+3. On first page load, the app auto-migrates extra columns/tables (`role`, `bookings`, `payments`, etc.)
+
+Default DB credentials in code:
+
+- Host: `127.0.0.1`
+- User: `root`
+- Password: *(empty)*
+- Database: `pg_life`
+- Port: `3307`
+
+### 4. Razorpay (optional for payments)
+Edit `includes/razorpay_config.php` and paste your **Test** Key ID and Secret from the [Razorpay Dashboard](https://dashboard.razorpay.com/):
+
+```php
+return array(
+  "key_id" => "rzp_test_xxxxxxxx",
+  "key_secret" => "xxxxxxxxxxxxxxxx",
+);
+```
+
+Test card (Razorpay test mode): `4111 1111 1111 1111`, any future expiry, CVV `123`.
+
+Without keys, booking still works; **Pay Now** returns a JSON message that keys are missing.
+
+### 5. Open the app
+Website: [http://localhost/PGLIFE/index.php](http://localhost/PGLIFE/index.php)  
+Admin: [http://localhost/PGLIFE/admin/index.php](http://localhost/PGLIFE/admin/index.php) (login as admin first)
+
+---
+
+## Main user flow
+
+1. Open home → search or pick a city  
+2. Open a PG → View details  
+3. Login → Book Now (status `pending`)  
+4. Admin confirms booking  
+5. User Dashboard → **Pay now** (Razorpay)  
+6. Admin sees payment under **Payments** / **Bookings**
+
+---
+
+## APIs (JSON)
+
+Examples:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `api/signup_submit.php` | Register user |
+| `api/login_submit.php` | Login (returns `role`, `redirect`) |
+| `api/toggle_interested.php` | Heart toggle |
+| `api/create_booking.php` | Create booking |
+| `api/cancel_booking.php` | Cancel unpaid booking |
+| `api/create_razorpay_order.php` | Create Razorpay order |
+| `api/verify_razorpay_payment.php` | Verify payment signature |
+| `api/admin_*.php` | Admin CRUD (auth required) |
+
+Responses use `Content-Type: application/json`.
+
+---
+
+## Responsive UI
+
+Layouts are tuned for desktop, tablet, and mobile:
+
+- Collapsible navbar  
+- Adaptive home hero and city grid  
+- Property cards and detail sections stack on small screens  
+- Dashboard / admin tables scroll horizontally on narrow viewports  
+- Admin sidebar stacks into a top navigation strip on tablets/phones  
+
+---
+
+## Notes
+
+- Signup always creates a **user** role account.  
+- Paid bookings cannot be cancelled by the user or set back to pending/cancelled by admin.  
+- Console errors like `chrome-extension://invalid` come from browser extensions, not this app.  
+- Educational / internship project — do not use production secrets in the repo.
 
 ---
 
 ## License
 
-This project is for **educational purposes only** and was created as part of an internship.
-
-Thank you for visiting the PG Life project!
+For educational purposes only.

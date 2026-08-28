@@ -1,33 +1,71 @@
-/* Class Selectors */
-.img-row{
+.img-row {
   margin-top: 20px;
+  text-align: center;
 }
 
-.usr-img{
-  box-shadow: 0 0 3px 1px rgba(0,0,0,0.4);
+.usr-img {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   padding: 12px;
   border-radius: 50%;
+  max-width: 140px;
+  width: 100%;
+  background: #fff;
 }
 
-.usr-details{
+.usr-details {
   margin-top: 20px;
   padding-top: 13px;
-  line-height: 0.9;
-  font-size: 0.9rem;
+  line-height: 1.35;
+  font-size: 0.95rem;
 }
 
-.usr-details :first-child{
+.usr-details :first-child {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
-.edit-profile-link{
+.edit-profile-link,
+.delete-profile-link {
   font-size: 0.9rem;
-  /* position: relative;
-  top: -20px;
-  left: 10px; */
 }
 
-.hide{
+.hide {
   display: none;
+}
+
+.property-heading h2 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.page-container .table th,
+.page-container .table td {
+  vertical-align: middle;
+}
+
+.page-container .js-pay-booking,
+.page-container .js-cancel-booking {
+  margin: 2px 4px 2px 0;
+}
+
+@media (max-width: 767.98px) {
+  .usr-details {
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .img-row {
+    margin-bottom: 8px;
+  }
+
+  .row.justify-content-sm-end .col-3 {
+    max-width: 100%;
+    flex: 0 0 100%;
+    text-align: center !important;
+    margin-left: 0 !important;
+  }
+
+  .page-container .btn-sm {
+    display: inline-block;
+    margin-top: 4px;
+  }
 }
