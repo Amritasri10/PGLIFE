@@ -26,7 +26,10 @@ $admin_page = isset($admin_page) ? $admin_page : "dashboard";
 <body>
 <div class="admin-shell">
   <aside class="admin-sidebar">
-    <a class="admin-brand" href="/PGLIFE/admin/index.php">PG Life Admin</a>
+    <a class="admin-brand" href="/PGLIFE/admin/index.php" title="Admin Dashboard">
+      <img src="/PGLIFE/img/logo.png" alt="PG Life" class="admin-logo" />
+      <span class="admin-brand-text"><small>Admin</small></span>
+    </a>
     <nav>
       <a class="<?php echo $admin_page === 'dashboard' ? 'active' : ''; ?>" href="/PGLIFE/admin/index.php"><i class="fas fa-chart-line"></i> Dashboard</a>
       <a class="<?php echo $admin_page === 'properties' ? 'active' : ''; ?>" href="/PGLIFE/admin/properties.php"><i class="fas fa-building"></i> Properties</a>
@@ -43,7 +46,12 @@ $admin_page = isset($admin_page) ? $admin_page : "dashboard";
   </aside>
   <main class="admin-main">
     <header class="admin-topbar">
-      <h1><?php echo htmlspecialchars($admin_title); ?></h1>
-      <div>Hi, <?php echo htmlspecialchars(explode(" ", $_SESSION["full_name"])[0]); ?></div>
+      <div class="admin-topbar-left">
+        <a href="/PGLIFE/index.php" class="admin-top-logo" title="Open website home">
+          <img src="/PGLIFE/img/logo.png" alt="PG Life" />
+        </a>
+        <h1><?php echo htmlspecialchars($admin_title); ?></h1>
+      </div>
+      <div class="admin-topbar-user">Hi, <?php echo htmlspecialchars(explode(" ", $_SESSION["full_name"])[0]); ?></div>
     </header>
     <section class="admin-content">

@@ -19,15 +19,56 @@
 .admin-brand {
   color: #fff;
   font-weight: 700;
-  font-size: 20px;
-  margin-bottom: 28px;
-  display: block;
+  font-size: 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
+}
+
+.admin-logo {
+  height: 42px;
+  width: auto;
+  max-width: none;
+  display: block;
+  background: #fff;
+  border-radius: 10px;
+  padding: 5px 7px;
+}
+
+.admin-brand-text small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #9db0c0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .admin-brand:hover {
   color: #20c997;
   text-decoration: none;
+}
+
+.admin-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-top-logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+  background: #f3faf7;
+  border-radius: 8px;
+  padding: 4px 6px;
+}
+
+.admin-topbar-user {
+  font-weight: 600;
+  color: #1b3042;
 }
 
 .admin-sidebar nav a,
@@ -77,6 +118,37 @@
 
 .admin-content {
   padding: 24px 28px;
+}
+
+.admin-welcome {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(90deg, #eefaf5, #fff);
+  border: 1px solid #d9f3ea;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.admin-welcome-logo {
+  height: 56px;
+  width: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 4px 14px rgba(32, 201, 151, 0.15);
+}
+
+.admin-welcome h2 {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  color: #1b3042;
+}
+
+.admin-welcome p {
+  margin: 0;
+  color: #6b7c8a;
 }
 
 .admin-cards {

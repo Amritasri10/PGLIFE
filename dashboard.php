@@ -70,6 +70,7 @@
     <link href="css/common.css" rel="stylesheet" />
     <link href="css/property_list.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
+    <link href="css/pages.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -90,26 +91,20 @@
       </ol>
   </nav>
 
-
-  <div class="container my-5">
-    <div class="row mt-5">
-      <div class="col-sm-5 offset-sm-2">
-        <h1>My Profile</h1>
-      </div>
+  <div class="dashboard-shell">
+    <div class="section-heading">
+      <h2>My Profile</h2>
+      <p>Manage your account, bookings, and interested PGs.</p>
     </div>
-    <div class="row justify-content-sm-center">
-      <div class="col-sm-3 img-row ">
+    <div class="profile-card">
+      <div class="img-row">
         <img src="./img/user.png" alt="User Image" class="usr-img">
       </div>
-      <div class="col-sm-5 usr-details">
-        <p><?php echo $full_name; ?></p>
-        <p><?php echo $email; ?></p>
-        <p><?php echo $phone; ?></p>
-        <p><?php echo $college; ?></p>
-      </div>
-    </div>
-    <div class="row justify-content-sm-end">
-      <div class="col-3 offset-9">
+      <div class="usr-details">
+        <p><?php echo htmlspecialchars($full_name); ?></p>
+        <p><?php echo htmlspecialchars($email); ?></p>
+        <p><?php echo htmlspecialchars($phone); ?></p>
+        <p><?php echo htmlspecialchars($college); ?></p>
         <a href="#" class="delete-profile-link" id="del-link">Delete Profile</a>
       </div>
     </div>

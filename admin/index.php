@@ -21,6 +21,13 @@ $pending = pglife_count($con, "SELECT COUNT(*) FROM bookings WHERE status='pendi
 $paid = pglife_count($con, "SELECT COUNT(*) FROM bookings WHERE payment_status='paid'");
 $testimonials = pglife_count($con, "SELECT COUNT(*) FROM testimonials");
 ?>
+<div class="admin-welcome">
+  <!-- <img src="/PGLIFE/img/logo.png" alt="PG Life" class="admin-welcome-logo" /> -->
+  <div>
+    <h2>Welcome to PG Life Admin</h2>
+    <p>Manage listings, reviews, bookings, and payments from one place.</p>
+  </div>
+</div>
 <div class="admin-cards">
   <div class="admin-card"><span>Properties</span><strong><?php echo $properties; ?></strong></div>
   <div class="admin-card"><span>Cities</span><strong><?php echo $cities; ?></strong></div>

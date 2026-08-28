@@ -7,6 +7,7 @@ PG Life is a full-stack PG (Paying Guest) discovery and booking web app built wi
 ## Features
 
 ### User website
+- Home, About, and Contact pages with responsive real-estate style UI
 - Search PGs by city (case-insensitive) and browse major cities
 - Property list with rent / rating filters and interested-user counts
 - Property detail page with carousel, amenities, ratings, and dynamic testimonials
@@ -15,6 +16,7 @@ PG Life is a full-stack PG (Paying Guest) discovery and booking web app built wi
 - Book Now → booking request (`pending`)
 - Dashboard: profile, bookings, cancel unpaid bookings, interested list
 - Pay Now (Razorpay) after admin confirms a booking
+- Visible PG Life logo in navbar, footer, and admin panel (logo links to home)
 
 ### Admin panel (`/PGLIFE/admin/`)
 - Dashboard stats (properties, cities, users, bookings, payments, testimonials)
