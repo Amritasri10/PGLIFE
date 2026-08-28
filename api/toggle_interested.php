@@ -1,46 +1,38 @@
 <?php
 session_start();
-
 require "../includes/database_connect_hide_error.php";
+require "../includes/json.php";
+require "../includes/auth.php";
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(array("success" => false, "is_logged_in" => false));
-    return;
+if (!$con) {
+  pglife_json(array("success" => false, "message" => "Database Connectivity Error!"), 500);
 }
 
-$user_id = $_SESSION['user_id'];
-$property_id = $_GET["property_id"];
+pglife_require_login();
 
-$sql_1 = "SELECT * FROM interested_users_properties WHERE user_id = $user_id AND property_id = $property_id";
-$result_1 = mysqli_query($con, $sql_1);
-if (!$result_1) {
-    echo json_encode(array("success" => false, "message" => "Something went wrong"));
-    return;
+$property_id = isset($_GET["property_id"]) ? intval($_GET["property_id"]) : 0;
+if ($property_id <= 0) {
+  pglife_json(array("success" => false, "message" => "Invalid property"));
 }
 
-if (mysqli_num_rows($result_1) > 0) {
-  //When user has the property interested already, this block will run to delete it from being interested, upon click
-  $sql_2 = "DELETE FROM interested_users_properties WHERE user_id = $user_id AND property_id = $property_id";
-  $result_2 = mysqli_query($con, $sql_2);
-  if (!$result_2) {
-      echo json_encode(array("success" => false, "message" => "Something went wrong"));
-      return;
-  } else {
-      echo json_encode(array("success" => true, "is_interested" => false, "property_id" => $property_id));
-      return;
+$user_id = intval($_SESSION["user_id"]);
+$stmt = mysqli_prepare($con, "SELECT id FROM interested_users_properties WHERE user_id = ? AND property_id = ?");
+mysqli_stmt_bind_param($stmt, "ii", $user_id, $property_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if ($result && mysqli_num_rows($result) > 0) {
+  $del = mysqli_prepare($con, "DELETE FROM interested_users_properties WHERE user_id = ? AND property_id = ?");
+  mysqli_stmt_bind_param($del, "ii", $user_id, $property_id);
+  if (!mysqli_stmt_execute($del)) {
+    pglife_json(array("success" => false, "message" => "Something went wrong"));
   }
+  pglife_json(array("success" => true, "is_interested" => false, "property_id" => $property_id));
 }
-else {
-  //When the property is not marked as interested, and upon click it is to be marked interested for the user, this block
-  //of code will run...
-  $sql_3 = "INSERT INTO interested_users_properties (user_id, property_id) VALUES ( $user_id, $property_id )";
-  $result_3 = mysqli_query($con, $sql_3);
-  if (!$result_3) {
-      echo json_encode(array("success" => false, "message" => "Something went wrong"));
-      return;
-  }
-  else {
-      echo json_encode(array("success" => true, "is_interested" => true, "property_id" => $property_id));
-      return;
-  }
+
+$ins = mysqli_prepare($con, "INSERT INTO interested_users_properties (user_id, property_id) VALUES (?, ?)");
+mysqli_stmt_bind_param($ins, "ii", $user_id, $property_id);
+if (!mysqli_stmt_execute($ins)) {
+  pglife_json(array("success" => false, "message" => "Something went wrong"));
 }
+pglife_json(array("success" => true, "is_interested" => true, "property_id" => $property_id));

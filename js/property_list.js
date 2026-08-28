@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
             XHR.addEventListener("error", on_error);
 
             // Set up request
-            XHR.open("GET", "api/toggle_interested.php?property_id=" + property_id);
+            XHR.open("GET", "/PGLIFE/api/toggle_interested.php?property_id=" + property_id);
 
             // Initiate the request
             XHR.send();
@@ -54,5 +54,5 @@ var toggle_interested_success = function (event) {
 var on_error = function (event) {
     document.getElementById("loading").style.display = 'none';
     // alert('Oops! Something went wrong! (on_error)');
-    alert('Connection to server could not be established!');
+    pglifeAlert("Connection to server could not be established!", false);
 };

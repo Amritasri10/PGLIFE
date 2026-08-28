@@ -1,9 +1,8 @@
 
-
 <!-- NAVBAR -->
 <div class="header sticky-top">
     <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand" href="../index.php">
+        <a class="navbar-brand" href="/PGLIFE/index.php">
             <img src="/PGLIFE/img/logo.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#my-navbar">
@@ -14,8 +13,6 @@
             <ul class="navbar-nav">
 
               <?php
-               //Check if user is logged-in or not
-               //If not logged-in
                if ( !isset($_SESSION["user_id"]) )
                 {
               ?>
@@ -32,23 +29,32 @@
                 </li>
               <?php
                 }
-                else //If user is logged in
+                else
                 {
               ?>
                   <div class='nav-name'>
                       Hi, <?php
                       $first_name = explode(" ",$_SESSION["full_name"])[0];
-                      echo $first_name;
+                      echo htmlspecialchars($first_name);
                       ?>
                   </div>
+                  <?php if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") { ?>
                   <li class="nav-item">
-                    <a class="nav-link" href="dashboard.php">
+                    <a class="nav-link" href="/PGLIFE/admin/index.php">
+                      <i class="fas fa-cog"></i>Admin Panel
+                    </a>
+                  </li>
+                  <div class="nav-vl"></div>
+                  <?php } else { ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/PGLIFE/dashboard.php">
                       <i class="fas fa-user"></i>Dashboard
                     </a>
                   </li>
                   <div class="nav-vl"></div>
+                  <?php } ?>
                   <li class="nav-item">
-                    <a class="nav-link" href="logout.php">
+                    <a class="nav-link" href="/PGLIFE/logout.php">
                       <i class="fas fa-sign-out-alt"></i>Logout
                     </a>
                   </li>

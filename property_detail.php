@@ -245,7 +245,7 @@ else{
               <div class="rent-unit">per month</div>
           </div>
           <div class="button-container col-6">
-              <a href="#" class="btn btn-primary">Book Now</a>
+              <button type="button" class="btn btn-primary" id="book-now-btn" data-toggle="modal" data-target="#booking-modal">Book Now</button>
           </div>
       </div>
     </div>
@@ -536,9 +536,9 @@ else{
               </div>
               <div class="testimonial-text">
                   <i class="fa fa-quote-left" aria-hidden="true"></i>
-                  <p><?php echo $testimonial_text; ?></p>
+                  <p><?php echo htmlspecialchars($testimonial_text); ?></p>
               </div>
-              <div class="testimonial-name">- <?php echo $testimonial_user; ?></div>
+              <div class="testimonial-name">- <?php echo htmlspecialchars($testimonial_user); ?></div>
           </div>
     <?php
         }
@@ -555,6 +555,42 @@ else{
 <?php
   }
 ?>
+
+    <div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Book <?php echo htmlspecialchars($pg_name); ?></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="booking-form">
+              <input type="hidden" name="property_id" value="<?php echo intval($pg_id); ?>">
+              <div class="form-group">
+                <label>Move-in date</label>
+                <input class="form-control" type="date" name="move_in_date" required>
+              </div>
+              <div class="form-group">
+                <label>Duration (months)</label>
+                <select class="form-control" name="duration_months" required>
+                  <option value="1">1 month</option>
+                  <option value="3">3 months</option>
+                  <option value="6">6 months</option>
+                  <option value="12">12 months</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Notes</label>
+                <textarea class="form-control" name="notes" rows="2" placeholder="Any request for the owner"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Submit booking</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal Pages -->
     <?php require "./includes/signup_modal.php"; ?>

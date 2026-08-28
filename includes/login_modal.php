@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="login-form" class="form" role="form" action="/PGLIFE/api/login_submit.php" method="POST" >
+                <form id="login-form" class="form" role="form" action="/PGLIFE/api/login_submit.php" method="POST">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">

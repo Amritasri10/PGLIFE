@@ -1,0 +1,114 @@
+.admin-shell {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f6f8;
+  font-family: 'Open Sans', sans-serif;
+  color: #243447;
+}
+.admin-sidebar {
+  width: 240px;
+  background: #1b3042;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+}
+.admin-brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 28px;
+  display: block;
+}
+.admin-sidebar nav a,
+.admin-side-foot a {
+  display: block;
+  color: #c9d6e2;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+.admin-sidebar nav a:hover,
+.admin-sidebar nav a.active,
+.admin-side-foot a:hover {
+  background: #2c4a62;
+  color: #fff;
+  text-decoration: none;
+}
+.admin-side-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #2c4a62;
+}
+.admin-main {
+  flex: 1;
+  min-width: 0;
+}
+.admin-topbar {
+  background: #fff;
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e6ebf0;
+}
+.admin-topbar h1 {
+  font-size: 22px;
+  margin: 0;
+}
+.admin-content {
+  padding: 24px 28px;
+}
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.admin-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.admin-card span {
+  display: block;
+  color: #6b7c8a;
+  font-size: 13px;
+}
+.admin-card strong {
+  font-size: 28px;
+}
+.admin-table {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.admin-table th,
+.admin-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef2f5;
+  vertical-align: middle;
+}
+.admin-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.badge-pending { background: #f0ad4e; }
+.badge-confirmed { background: #28a745; }
+.badge-cancelled { background: #dc3545; }
+.badge-completed { background: #6c757d; }
+.admin-actions form,
+.admin-actions .btn {
+  display: inline-block;
+  margin-right: 6px;
+}
+@media (max-width: 768px) {
+  .admin-shell { flex-direction: column; }
+  .admin-sidebar { width: 100%; }
+}

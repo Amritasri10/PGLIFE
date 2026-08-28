@@ -1,6 +1,11 @@
 <?php
   session_start();
 
+  if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
+    header("location: /PGLIFE/admin/index.php");
+    exit();
+  }
+
   // If user is logged in, only then user can view the dashboard.php page, else will get redirected to homepage.
   if( isset($_SESSION["user_id"]) )
   {
@@ -35,6 +40,12 @@
         if( !$liked_property_result ){
           echo mysqli_error($con);
         }
+
+        $bookings_result = mysqli_query($con, "SELECT b.*, p.name AS property_name, p.address, p.rent
+          FROM bookings b
+          JOIN properties p ON p.id = b.property_id
+          WHERE b.user_id = " . intval($user_id) . "
+          ORDER BY b.id DESC");
       }
     }
   }
@@ -106,6 +117,49 @@
 
 
   <div class="page-container">
+
+    <div class="property-heading ">
+      <h2>My Bookings</h2>
+      <hr>
+    </div>
+    <?php if (isset($bookings_result) && $bookings_result && mysqli_num_rows($bookings_result) > 0) { ?>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>PG</th><th>Move-in</th><th>Months</th><th>Amount</th><th>Booking</th><th>Payment</th><th></th></tr>
+        </thead>
+        <tbody>
+        <?php while ($booking = mysqli_fetch_assoc($bookings_result)) {
+          $pay_status = isset($booking["payment_status"]) ? $booking["payment_status"] : "unpaid";
+          $amount_due = intval($booking["rent"]) * intval($booking["duration_months"]);
+        ?>
+          <tr>
+            <td><?php echo htmlspecialchars($booking["property_name"]); ?></td>
+            <td><?php echo htmlspecialchars($booking["move_in_date"]); ?></td>
+            <td><?php echo intval($booking["duration_months"]); ?></td>
+            <td>Rs <?php echo $amount_due; ?></td>
+            <td><?php echo htmlspecialchars($booking["status"]); ?></td>
+            <td>
+              <?php echo htmlspecialchars($pay_status); ?>
+              <?php if ($pay_status === "paid" && !empty($booking["razorpay_payment_id"])) { ?>
+                <br><small><?php echo htmlspecialchars($booking["razorpay_payment_id"]); ?></small>
+              <?php } ?>
+            </td>
+            <td>
+              <?php if ($booking["status"] === "confirmed" && $pay_status !== "paid") { ?>
+                <button class="btn btn-sm btn-success js-pay-booking" data-id="<?php echo intval($booking["id"]); ?>">Pay now</button>
+              <?php } ?>
+              <?php if (in_array($booking["status"], array("pending", "confirmed"), true) && $pay_status !== "paid") { ?>
+                <button class="btn btn-sm btn-danger js-cancel-booking" data-id="<?php echo intval($booking["id"]); ?>">Cancel</button>
+              <?php } ?>
+            </td>
+          </tr>
+        <?php } ?>
+        </tbody>
+      </table>
+      <p class="text-muted">Admin confirm ke baad hi Pay now dikhega. Payment Razorpay se hogi.</p>
+    <?php } else { ?>
+      <p class="text-center">No bookings yet. Open a PG and click Book Now.</p>
+    <?php } ?>
 
     <div class="property-heading ">
       <h2>My Interested Properties:</h2>
@@ -273,7 +327,7 @@
 
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <!-- <script type="text/javascript" src="js/common.js"></script> -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script type="text/javascript" src="js/dashboard.js"></script>
 </body>
 
