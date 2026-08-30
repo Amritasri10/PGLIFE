@@ -30,7 +30,7 @@ if ($id > 0) {
 $properties = mysqli_query($con, "SELECT id, name FROM properties ORDER BY name");
 ?>
 <div class="admin-form">
-  <form class="js-admin-form" action="/PGLIFE/api/admin_testimonials.php" method="POST" data-redirect="/PGLIFE/admin/testimonials.php">
+  <form class="js-admin-form" action="<?php echo BASE_URL; ?>/api/admin_testimonials.php" method="POST" data-redirect="<?php echo BASE_URL; ?>/admin/testimonials.php">
     <input type="hidden" name="action" value="<?php echo $id > 0 ? "update" : "create"; ?>">
     <?php if ($id > 0) { ?>
       <input type="hidden" name="id" value="<?php echo $id; ?>">

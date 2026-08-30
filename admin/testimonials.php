@@ -61,8 +61,8 @@ $add_href = "testimonial_form.php" . ($filter_property > 0 ? "?property_id=" . $
         <td><?php echo htmlspecialchars($preview); ?></td>
         <td class="admin-actions">
           <a class="btn btn-sm btn-primary" href="testimonial_form.php?id=<?php echo intval($t["id"]); ?>">Edit</a>
-          <a class="btn btn-sm btn-info" target="_blank" href="/PGLIFE/property_detail.php?property_id=<?php echo intval($t["property_id"]); ?>">View</a>
-          <form class="js-admin-form" action="/PGLIFE/api/admin_testimonials.php" method="POST" data-confirm="Delete this testimonial?">
+          <a class="btn btn-sm btn-info" target="_blank" href="<?php echo BASE_URL; ?>/property_detail.php?property_id=<?php echo intval($t["property_id"]); ?>">View</a>
+          <form class="js-admin-form" action="<?php echo BASE_URL; ?>/api/admin_testimonials.php" method="POST" data-confirm="Delete this testimonial?">
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="<?php echo intval($t["id"]); ?>">
             <button class="btn btn-sm btn-danger" type="submit">Delete</button>

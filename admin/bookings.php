@@ -38,7 +38,7 @@ $bookings = mysqli_query($con, "SELECT b.*, u.full_name, u.email, p.name AS prop
           <?php } ?>
         </td>
         <td>
-          <form class="js-admin-form form-inline" action="/PGLIFE/api/admin_bookings.php" method="POST">
+          <form class="js-admin-form form-inline" action="<?php echo BASE_URL; ?>/api/admin_bookings.php" method="POST">
             <input type="hidden" name="id" value="<?php echo intval($b["id"]); ?>">
             <select class="form-control form-control-sm mr-2" name="status">
               <?php foreach (array("pending","confirmed","cancelled","completed") as $st) { ?>

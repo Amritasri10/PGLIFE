@@ -1,4 +1,4 @@
-
+<?php require_once __DIR__ . "/config.php"; ?>
 <!-- Login Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-heading" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="login-form" class="form" role="form" action="/PGLIFE/api/login_submit.php" method="POST">
+                <form id="login-form" class="form" role="form" action="<?php echo BASE_URL; ?>/api/login_submit.php" method="POST">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">

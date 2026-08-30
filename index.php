@@ -1,6 +1,28 @@
 <?php
   session_start();
   $nav_page = "index";
+  require_once "./includes/config.php";
+  require_once "./includes/database_connect_hide_error.php";
+
+  // Fetch cities with their images from DB
+  $index_cities = [];
+  if (isset($con) && $con) {
+    $city_res = mysqli_query($con, "SELECT name, image_path FROM cities ORDER BY name ASC");
+    if ($city_res) {
+      while ($cr = mysqli_fetch_assoc($city_res)) {
+        $index_cities[] = $cr;
+      }
+    }
+  }
+  // Fallback if DB unavailable
+  if (empty($index_cities)) {
+    $index_cities = [
+      ["name" => "Delhi",     "image_path" => "img/delhi.png"],
+      ["name" => "Mumbai",    "image_path" => "img/mumbai.png"],
+      ["name" => "Bengaluru", "image_path" => "img/bangalore.png"],
+      ["name" => "Hyderabad", "image_path" => "img/hyderabad.png"],
+    ];
+  }
 ?>
 
 <!DOCTYPE html>
@@ -41,10 +63,9 @@
         </div>
       </form>
       <div class="hero-chips">
-        <a href="property_list.php?city=Delhi">Delhi</a>
-        <a href="property_list.php?city=Mumbai">Mumbai</a>
-        <a href="property_list.php?city=Bengaluru">Bengaluru</a>
-        <a href="property_list.php?city=Hyderabad">Hyderabad</a>
+        <?php foreach ($index_cities as $c): ?>
+          <a href="property_list.php?city=<?php echo urlencode($c["name"]); ?>"><?php echo htmlspecialchars($c["name"]); ?></a>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
@@ -55,30 +76,21 @@
       <p>Pick a city and explore PG options tailored for students and professionals.</p>
     </div>
     <div class="city-box">
+      <?php foreach ($index_cities as $c):
+        // Use uploaded image if available, else show a placeholder
+        if (!empty($c["image_path"])) {
+          $img_src = BASE_URL . "/" . htmlspecialchars($c["image_path"]);
+        } else {
+          $img_src = BASE_URL . "/img/bg.png";
+        }
+      ?>
       <div class="city-img">
-        <a href="property_list.php?city=Delhi">
-          <img src="./img/delhi.png" alt="Delhi">
-          <span>Delhi</span>
+        <a href="property_list.php?city=<?php echo urlencode($c["name"]); ?>">
+          <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($c["name"]); ?>">
+          <span><?php echo htmlspecialchars($c["name"]); ?></span>
         </a>
       </div>
-      <div class="city-img">
-        <a href="property_list.php?city=Mumbai">
-          <img src="./img/mumbai.png" alt="Mumbai">
-          <span>Mumbai</span>
-        </a>
-      </div>
-      <div class="city-img">
-        <a href="property_list.php?city=Hyderabad">
-          <img src="./img/hyderabad.png" alt="Hyderabad">
-          <span>Hyderabad</span>
-        </a>
-      </div>
-      <div class="city-img">
-        <a href="property_list.php?city=Bengaluru">
-          <img src="./img/bangalore.png" alt="Bengaluru">
-          <span>Bengaluru</span>
-        </a>
-      </div>
+      <?php endforeach; ?>
     </div>
   </section>
 

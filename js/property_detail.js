@@ -1,3 +1,5 @@
+var _base = window.PGLIFE_BASE || "";
+
 window.addEventListener("load", function () {
   const search = window.location.search;
   const params = new URLSearchParams(search);
@@ -9,7 +11,7 @@ window.addEventListener("load", function () {
       var XHR = new XMLHttpRequest();
       XHR.addEventListener("load", toggle_interested_success);
       XHR.addEventListener("error", on_error);
-      XHR.open("GET", "/PGLIFE/api/toggle_interested.php?property_id=" + property_id);
+      XHR.open("GET", _base + "/api/toggle_interested.php?property_id=" + property_id);
       XHR.send();
       if (document.getElementById("loading")) {
         document.getElementById("loading").style.display = "block";
@@ -23,7 +25,7 @@ window.addEventListener("load", function () {
     booking_form.addEventListener("submit", function (event) {
       event.preventDefault();
       var XHR = new XMLHttpRequest();
-      XHR.open("POST", "/PGLIFE/api/create_booking.php");
+      XHR.open("POST", _base + "/api/create_booking.php");
       XHR.addEventListener("load", function () {
         if (document.getElementById("loading")) {
           document.getElementById("loading").style.display = "none";
@@ -43,7 +45,7 @@ window.addEventListener("load", function () {
         }
         pglifeAlert(response.message, !!response.success).then(function () {
           if (response.success) {
-            window.location.href = "/PGLIFE/dashboard.php";
+            window.location.href = _base + "/dashboard.php";
           }
         });
       });

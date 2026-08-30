@@ -1,8 +1,9 @@
 <?php
   session_start();
+  require_once __DIR__ . "/includes/config.php";
 
   if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
-    header("location: /PGLIFE/admin/index.php");
+    header("location: " . BASE_URL . "/admin/index.php");
     exit();
   }
 

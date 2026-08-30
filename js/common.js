@@ -1,3 +1,6 @@
+// window.PGLIFE_BASE is injected by PHP (footer.php) so paths work on any host
+var _base = window.PGLIFE_BASE || "";
+
 window.addEventListener("load", function () {
   function parseJson(text) {
     try {
@@ -14,7 +17,7 @@ window.addEventListener("load", function () {
       event.preventDefault();
       var XHR = new XMLHttpRequest();
       var form_data = new FormData(signup_form);
-      XHR.open("POST", "/PGLIFE/api/signup_submit.php");
+      XHR.open("POST", _base + "/api/signup_submit.php");
       XHR.addEventListener("load", function () {
         if (document.getElementById("loading")) {
           document.getElementById("loading").style.display = "none";
@@ -26,7 +29,7 @@ window.addEventListener("load", function () {
         }
         pglifeAlert(response.message, !!response.success).then(function () {
           if (response.success) {
-            window.location.href = "/PGLIFE/index.php";
+            window.location.href = _base + "/index.php";
           }
         });
       });
@@ -44,7 +47,7 @@ window.addEventListener("load", function () {
       event.preventDefault();
       var XHR = new XMLHttpRequest();
       var form_data = new FormData(login_form);
-      XHR.open("POST", "/PGLIFE/api/login_submit.php");
+      XHR.open("POST", _base + "/api/login_submit.php");
       XHR.addEventListener("load", function () {
         if (document.getElementById("loading")) {
           document.getElementById("loading").style.display = "none";
@@ -58,7 +61,7 @@ window.addEventListener("load", function () {
         }
         pglifeAlert(response.message, !!response.success).then(function () {
           if (response.success) {
-            window.location.href = response.redirect || "/PGLIFE/index.php";
+            window.location.href = response.redirect || (_base + "/index.php");
           }
         });
       });

@@ -1,11 +1,13 @@
     </section>
   </main>
 </div>
-<script src="/PGLIFE/js/jquery.js"></script>
-<script src="/PGLIFE/js/bootstrap.min.js"></script>
+<?php require_once dirname(__DIR__) . "/includes/config.php"; ?>
+<script>window.PGLIFE_BASE = "<?php echo addslashes(BASE_URL); ?>";</script>
+<script src="<?php echo BASE_URL; ?>/js/jquery.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/PGLIFE/js/swal.js"></script>
-<script src="/PGLIFE/js/admin.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/swal.js"></script>
+<script src="<?php echo BASE_URL; ?>/js/admin.js"></script>
 </body>
 </html>
 <?php

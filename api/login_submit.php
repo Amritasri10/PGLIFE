@@ -2,6 +2,7 @@
 session_start();
 require "../includes/database_connect_hide_error.php";
 require "../includes/json.php";
+require_once "../includes/config.php";
 
 header("Content-Type: application/json; charset=utf-8");
 
@@ -32,7 +33,7 @@ if ($result && mysqli_num_rows($result) === 1) {
   $_SESSION["user_id"] = intval($row["id"]);
   $_SESSION["full_name"] = $row["full_name"];
   $_SESSION["role"] = $role;
-  $redirect = $role === "admin" ? "/PGLIFE/admin/index.php" : "/PGLIFE/index.php";
+  $redirect = $role === "admin" ? BASE_URL . "/admin/index.php" : BASE_URL . "/index.php";
   pglife_json(array(
     "success" => true,
     "message" => "Successfully logged in",

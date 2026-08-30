@@ -16,7 +16,7 @@ $users = mysqli_query($con, "SELECT id, full_name, email, phone, gender, college
       <td><?php echo htmlspecialchars($user["email"]); ?></td>
       <td><?php echo htmlspecialchars($user["phone"]); ?></td>
       <td>
-        <form class="js-admin-form form-inline" action="/PGLIFE/api/admin_users.php" method="POST">
+        <form class="js-admin-form form-inline" action="<?php echo BASE_URL; ?>/api/admin_users.php" method="POST">
           <input type="hidden" name="action" value="update_role">
           <input type="hidden" name="id" value="<?php echo intval($user["id"]); ?>">
           <select class="form-control form-control-sm mr-2" name="role">
@@ -27,7 +27,7 @@ $users = mysqli_query($con, "SELECT id, full_name, email, phone, gender, college
         </form>
       </td>
       <td>
-        <form class="js-admin-form" action="/PGLIFE/api/admin_users.php" method="POST" data-confirm="Delete this user?">
+        <form class="js-admin-form" action="<?php echo BASE_URL; ?>/api/admin_users.php" method="POST" data-confirm="Delete this user?">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="id" value="<?php echo intval($user["id"]); ?>">
           <button class="btn btn-sm btn-danger" type="submit">Delete</button>

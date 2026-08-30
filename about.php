@@ -36,10 +36,10 @@
           <li><i class="fas fa-check-circle"></i> Easy interest marking and booking</li>
           <li><i class="fas fa-check-circle"></i> Secure online payments after confirmation</li>
         </ul>
-        <a class="btn btn-primary" href="/PGLIFE/property_list.php?city=Delhi">Explore PGs</a>
+        <a class="btn btn-primary" href="property_list.php?city=Delhi">Explore PGs</a>
       </div>
       <div class="about-media">
-        <img src="/PGLIFE/img/about.jpg" alt="About PG Life" />
+        <img src="img/about.jpg" alt="About PG Life" />
       </div>
     </div>
   </section>

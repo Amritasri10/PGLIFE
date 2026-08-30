@@ -41,7 +41,7 @@ $cities = mysqli_query($con, "SELECT id, name FROM cities ORDER BY name");
 $amenities = mysqli_query($con, "SELECT id, name, type FROM amenities ORDER BY type, name");
 ?>
 <div class="admin-form">
-  <form class="js-admin-form" action="/PGLIFE/api/admin_properties.php" method="POST" enctype="multipart/form-data">
+  <form class="js-admin-form" action="<?php echo BASE_URL; ?>/api/admin_properties.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="<?php echo $id > 0 ? 'update' : 'create'; ?>">
     <?php if ($id > 0) { ?>
       <input type="hidden" name="id" value="<?php echo $id; ?>">

@@ -23,8 +23,8 @@ $properties = mysqli_query($con, "SELECT p.*, c.name AS city_name FROM propertie
       <td class="admin-actions">
         <a class="btn btn-sm btn-primary" href="property_form.php?id=<?php echo intval($p["id"]); ?>">Edit</a>
         <a class="btn btn-sm btn-secondary" href="testimonials.php?property_id=<?php echo intval($p["id"]); ?>">Reviews</a>
-        <a class="btn btn-sm btn-info" target="_blank" href="/PGLIFE/property_detail.php?property_id=<?php echo intval($p["id"]); ?>">View</a>
-        <form class="js-admin-form" action="/PGLIFE/api/admin_properties.php" method="POST" data-confirm="Delete this property?">
+        <a class="btn btn-sm btn-info" target="_blank" href="<?php echo BASE_URL; ?>/property_detail.php?property_id=<?php echo intval($p["id"]); ?>">View</a>
+        <form class="js-admin-form" action="<?php echo BASE_URL; ?>/api/admin_properties.php" method="POST" data-confirm="Delete this property?">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="id" value="<?php echo intval($p["id"]); ?>">
           <button class="btn btn-sm btn-danger" type="submit">Delete</button>

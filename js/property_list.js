@@ -1,22 +1,15 @@
+var _base = window.PGLIFE_BASE || "";
+
 window.addEventListener("load", function () {
     var is_interested_images = document.getElementsByClassName("is-interested-image");
     Array.from(is_interested_images).forEach(element => {
         element.addEventListener("click", function (event) {
             var XHR = new XMLHttpRequest();
             var property_id = event.target.getAttribute("property_id");
-            // console.log(typeof(property_id));
-            // console.log(property_id);
 
-            // On success
             XHR.addEventListener("load", toggle_interested_success);
-
-            // On error
             XHR.addEventListener("error", on_error);
-
-            // Set up request
-            XHR.open("GET", "/PGLIFE/api/toggle_interested.php?property_id=" + property_id);
-
-            // Initiate the request
+            XHR.open("GET", _base + "/api/toggle_interested.php?property_id=" + property_id);
             XHR.send();
 
             document.getElementById("loading").style.display = 'block';
@@ -53,6 +46,5 @@ var toggle_interested_success = function (event) {
 
 var on_error = function (event) {
     document.getElementById("loading").style.display = 'none';
-    // alert('Oops! Something went wrong! (on_error)');
     pglifeAlert("Connection to server could not be established!", false);
 };

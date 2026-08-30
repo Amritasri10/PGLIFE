@@ -68,6 +68,9 @@ function pglife_ensure_schema($con) {
 
   mysqli_query($con, "ALTER TABLE testimonials MODIFY id INT(11) NOT NULL AUTO_INCREMENT");
 
+  // Add image_path column to cities table
+  pglife_add_column($con, "cities", "image_path", "image_path VARCHAR(500) DEFAULT NULL");
+
   $admin_email = "admin@pglife.com";
   $stmt = mysqli_prepare($con, "SELECT id FROM users WHERE email = ?");
   if ($stmt) {

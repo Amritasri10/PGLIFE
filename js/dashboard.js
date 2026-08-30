@@ -1,22 +1,15 @@
+var _base = window.PGLIFE_BASE || "";
+
 window.addEventListener("load", function () {
     var is_interested_images = document.getElementsByClassName("is-interested-image");
     Array.from(is_interested_images).forEach(element => {
         element.addEventListener("click", function (event) {
             var XHR = new XMLHttpRequest();
             var property_id = event.target.getAttribute("property_id");
-            // console.log(typeof(property_id));
-            // console.log(property_id);
 
-            // On success
             XHR.addEventListener("load", remove_interested_success);
-
-            // On error
             XHR.addEventListener("error", on_error);
-
-            // Set up request
-            XHR.open("GET", "/PGLIFE/api/handle_interested_dashboard.php?property_id=" + property_id);
-
-            // Initiate the request
+            XHR.open("GET", _base + "/api/handle_interested_dashboard.php?property_id=" + property_id);
             XHR.send();
 
             document.getElementById("loading").style.display = 'block';
@@ -29,7 +22,7 @@ window.addEventListener("load", function () {
             var fd = new FormData();
             fd.append("booking_id", btn.getAttribute("data-id"));
             var XHR = new XMLHttpRequest();
-            XHR.open("POST", "/PGLIFE/api/cancel_booking.php");
+            XHR.open("POST", _base + "/api/cancel_booking.php");
             XHR.addEventListener("load", function () {
                 console.log("Cancel booking API:", XHR.responseText);
                 var response = JSON.parse(XHR.responseText);
@@ -59,7 +52,7 @@ window.addEventListener("load", function () {
             if (document.getElementById("loading")) {
                 document.getElementById("loading").style.display = "block";
             }
-            fetch("/PGLIFE/api/create_razorpay_order.php", {
+            fetch(_base + "/api/create_razorpay_order.php", {
                 method: "POST",
                 body: fd,
                 credentials: "same-origin"
@@ -98,7 +91,7 @@ window.addEventListener("load", function () {
                         verify.append("razorpay_order_id", response.razorpay_order_id);
                         verify.append("razorpay_payment_id", response.razorpay_payment_id);
                         verify.append("razorpay_signature", response.razorpay_signature);
-                        fetch("/PGLIFE/api/verify_razorpay_payment.php", {
+                        fetch(_base + "/api/verify_razorpay_payment.php", {
                             method: "POST",
                             body: verify,
                             credentials: "same-origin"
@@ -137,11 +130,8 @@ var remove_interested_success = function (event) {
         var is_interested_image = document.querySelectorAll(".property-id-" + property_id + " .is-interested-image")[0];
         var interested_user_count = document.querySelectorAll(".property-id-" + property_id + " .interested-user-count")[0];
 
-        if ( !response.is_interested ) {
-          // Upon Click, the specific interested property will become not-interested, and this block will run...
-          // We will hide that property that is being marked uninterested, by .hide class
-
-            var card_box = document.getElementById(`card-${property_id}`);
+        if (!response.is_interested) {
+            var card_box = document.getElementById("card-" + property_id);
             card_box.classList.add("hide");
             interested_user_count.innerHTML = parseFloat(interested_user_count.innerHTML) - 1;
         }
@@ -153,6 +143,5 @@ var remove_interested_success = function (event) {
 
 var on_error = function (event) {
     document.getElementById("loading").style.display = 'none';
-    // alert('Oops! Something went wrong! (on_error)');
     pglifeAlert("Connection to server could not be established!", false);
 };
