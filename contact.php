@@ -1,13 +1,18 @@
 <?php
   session_start();
   $nav_page = "contact";
+  require_once "./includes/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact Us | PG Life</title>
+  <?php
+    $seo_title       = "Contact PG Life | Support for PG Bookings & Listings";
+    $seo_description = "Get in touch with PG Life for questions about PG listings, bookings, or payments. We are here Mon–Sat 10 AM to 7 PM.";
+    $seo_keywords    = "contact PG Life, PG support, paying guest helpline, PG booking help";
+    $seo_url         = BASE_URL . "/contact.php";
+    require "./includes/seo_head.php";
+  ?>
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />

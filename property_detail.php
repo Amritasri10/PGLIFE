@@ -77,8 +77,15 @@ else{
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ganpati Paying Guest | PG Life</title>
+    <?php
+      require_once "./includes/config.php";
+      $seo_title       = htmlspecialchars($pg_name) . " in " . htmlspecialchars($city_name) . " | PG Life";
+      $seo_description = "Book " . htmlspecialchars($pg_name) . " in " . htmlspecialchars($city_name) . ". Rent: Rs " . intval($pg_rent) . "/month. " . htmlspecialchars(mb_substr($pg_description, 0, 100)) . "...";
+      $seo_keywords    = "PG in " . htmlspecialchars($city_name) . ", " . htmlspecialchars($pg_name) . ", paying guest " . htmlspecialchars($city_name) . ", PG booking";
+      $seo_url         = BASE_URL . "/property_detail.php?property_id=" . intval($pg_id);
+      $seo_type        = "article";
+      require "./includes/seo_head.php";
+    ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" />

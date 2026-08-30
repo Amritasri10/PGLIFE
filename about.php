@@ -1,13 +1,18 @@
 <?php
   session_start();
   $nav_page = "about";
+  require_once "./includes/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About Us | PG Life</title>
+  <?php
+    $seo_title       = "About PG Life | Verified PG Accommodations Across India";
+    $seo_description = "Learn about PG Life — India's trusted platform to discover, compare, and book paying guest accommodations near colleges and workplaces. Transparent rents, real reviews.";
+    $seo_keywords    = "about PG Life, verified PG India, paying guest platform, student accommodation, PG booking";
+    $seo_url         = BASE_URL . "/about.php";
+    require "./includes/seo_head.php";
+  ?>
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />

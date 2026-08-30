@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block admin and API from indexing
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /dashboard.php
+
+# Allow important pages
+Allow: /index.php
+Allow: /about.php
+Allow: /contact.php
+Allow: /property_list.php
+Allow: /property_detail.php
+
+Sitemap: https://pglifehub.free.je/sitemap.php

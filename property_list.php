@@ -80,8 +80,14 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Best PG's in Mumbai | PG Life</title>
+    <?php
+      require_once "./includes/config.php";
+      $seo_title       = "PG Accommodations in " . htmlspecialchars($city) . " | PG Life";
+      $seo_description = "Find the best paying guest accommodations in " . htmlspecialchars($city) . ". Compare rent, amenities, safety ratings and book your PG online on PG Life.";
+      $seo_keywords    = "PG in " . htmlspecialchars($city) . ", paying guest " . htmlspecialchars($city) . ", student PG " . htmlspecialchars($city) . ", PG rooms " . htmlspecialchars($city) . ", affordable PG " . htmlspecialchars($city);
+      $seo_url         = BASE_URL . "/property_list.php?city=" . urlencode($city);
+      require "./includes/seo_head.php";
+    ?>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" />

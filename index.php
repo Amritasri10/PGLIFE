@@ -29,10 +29,29 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PG Life | Find Your Perfect Paying Guest Home</title>
+    <?php
+      $seo_title       = "PG Life | Find Verified Paying Guest Homes in India";
+      $seo_description = "Find affordable, verified PG accommodations near colleges and workplaces in Delhi, Mumbai, Bengaluru, Hyderabad and more. Compare rent, amenities, book online.";
+      $seo_keywords    = "PG accommodation India, paying guest near college, student PG Delhi Mumbai Bengaluru Hyderabad, affordable PG rooms, PG with food, PG booking online";
+      $seo_url         = BASE_URL . "/index.php";
+      $seo_image       = BASE_URL . "/img/bg.png";
+      require "./includes/seo_head.php";
+    ?>
     <link rel="icon" href="favicon.ico" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PG Life",
+      "url": "<?php echo BASE_URL; ?>",
+      "description": "Find verified paying guest accommodations across India",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<?php echo BASE_URL; ?>/property_list.php?city={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet" />
